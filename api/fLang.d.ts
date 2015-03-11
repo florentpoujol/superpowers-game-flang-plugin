@@ -3,13 +3,14 @@ declare module fLang {
     locales: string[];
     defaultLocale: string;
     currentLocale: string;
-    searchInDefault: boolean;
+    searchInDefaultLocale: boolean;
     replacementPattern: string;
     cache: boolean;
   }
   
   var config: Config;
+  var cache: { [key:string]: string };
   var dictionariesByLocales: { [key:string]: Object };
-
+  
   function get(key: string, replacements?: { [key:string]: string }): string;
 }

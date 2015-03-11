@@ -29,7 +29,7 @@
     "url": "https://github.com/florentpoujol/superpowers-flang-plugin/issues"
   },
   "scripts": {
-    "gendoc": "typedoc --out docs/ api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --verbose --includeDeclarations",
+    "gendoc": "typedoc --out docs/ api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme readme.md --verbose",
     "compilets": "tsc api/fLang.ts --out gitignore/fLang.js --module commonjs --target ES5",
     "mklink": "mklink /j \"../../superpowers/plugins/florentpoujol/fLang\" \"./\""
   },
