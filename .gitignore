@@ -1,4 +1,5 @@
 gitignore/
-.sublimets
-api/tsconfig.json
 node_modules/
+.sublimets
+tsconfig.json
+tsd.json

@@ -8,7 +8,7 @@ module fLang {
   * Interface for the `fLang.config` dictionary.
   * See the the documentation of the `fLang.config` variable for a description of each properties and their default values.
   */
-  interface Config {
+  export interface Config {
     /**
     * The array that contains all of the locale (languages) names. <br>
     * Default value is `["en"]`.
@@ -51,7 +51,7 @@ module fLang {
   * The module's configuration. <br>
   * See the `Config` interface for a description of each properties and their default values.
   */
-  var config: Config; // this two-step function is need for typedoc to consider config as a variable instead of an object literals
+  export var config: Config; // this two-step function is need for typedoc to consider config as a variable instead of an object literals
   config = {
     locales: ["en"],
     defaultLocale: "en",
@@ -62,17 +62,18 @@ module fLang {
   };
 
   /**
-  * A cache for the keys and their values. All keys contains the locale name as their first chunk.
+  * A cache for the keys and their values. All keys contains the locale name as their first chunk. <br>
+  * The content is of type `{ [key:string]: string }`.
   */
-  var cache: { [key:string]: string } = {};
+  export var cache: any = {};
 
   /**
   * The container for the locale dictionaries. <br>
   * The keys are the locale names as defined in the `fLang.config.locales` array. <br>
   * The values are single or multilevel dictionaries in which all keys and values should be strings. <br>
-  * The default value is `{ en: {} }`.
+  * The content must be of type `{ [key:string]: Object }` and the default value is `{ en: {} }`.
   */
-  var dictionariesByLocales: { [key:string]: Object };
+  export var dictionariesByLocales: any;
   dictionariesByLocales = { en: {} };
 
   /**
@@ -82,7 +83,7 @@ module fLang {
   * @param replacements The placeholders and their replacements.
   * @returns The localized string in the current locale
   */
-  function get( key: string, replacements?: { [key:string]: any } ): string {
+  export function get( key: string, replacements?: { [key:string]: any } ): string {
     var cacheLine = config.cache;
     var locale = config.currentLocale;
     var locKey = locale + "." + key;
@@ -100,7 +101,7 @@ module fLang {
         noLocKey = keyChunks.join( "." );
       }
 
-      locKey = locale + noLocKey;
+      locKey = locale + "." + noLocKey;
       line = cache[ locKey ] || "";
       
       if ( line === "" ) {
@@ -110,7 +111,7 @@ module fLang {
         var dico: any = dictionariesByLocales[ locale ]; // speicying the type any makes the compiler happy when writing "line = dico;" below
         if ( dico === undefined ) {
           var error = "fLang.get(): Dictionary not found for locale '"+locale+"'.";
-          console.error( error, key, dictionariesByLocales );
+          console.error( error, "  Key:", key, "  Dictionaries:", dictionariesByLocales );
           return error;
         }
 
@@ -127,7 +128,7 @@ module fLang {
               // don't want to search in default locale, or already the default locale
               cacheLine = false;
               dico = "Lang.get(): Key not found: '" + key + "'.";
-              console.log( dico );
+              console.warn( dico );
             }
 
             break;
@@ -150,7 +151,7 @@ module fLang {
       // test the type here to get a unified error message
       // otherwise, caching, replacing and returning the non-string value should all throw a different error message
       var error = "fLang.get(): Provided key '" + key + "' does not lead to a string but to a value of type '" + type + "'."
-      console.log( error, line );
+      console.error( error, "  Value:", line, "  Dictionary:", fLang.dictionariesByLocales[ locale ] );
       return error;
     }
 
@@ -162,7 +163,7 @@ module fLang {
     if ( replacements !== undefined ) {
       // ie: replacements = { theKeyToSearchFor: "my new value" }
       for ( var replKey in replacements ) { // can't use var key, nor _key
-        line.replace(
+        line = line.replace(
           config.replacementPattern.replace( "text", replKey ), // ie: replace "{{text}}" by "{{theKeyToSearchFor}}"
           replacements[ replKey ] 
         ); // replace "{{theKeyToSearchFor}}" by "my new value" in the line

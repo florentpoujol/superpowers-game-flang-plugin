@@ -1,0 +1,9 @@
+# codemirror-mode:coffeescript
+# codemirror-theme:monokai
+
+localeName: "English"
+
+greetings:
+  welcome: """
+  Welcome {{player_name}}!
+  """

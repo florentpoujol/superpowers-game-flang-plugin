@@ -64,3 +64,13 @@ You can define another replacement pattern via the config:
     fLang.config.currrentLocale = "fr";
     var text = fLang.get( "greetings.welcome", { player_name: "Florent" } ); 
     // Bienvenu Florent !
+
+## Test project
+
+The `test project` folder contains a ... test project.  
+
+To run it, put the project folder `fLang` in Superpowers' projects folder, start the server, access the project then run it and open the console.
+
+On Window, Superpowers' projects folder is typically in `C:\Users\[Your user name]\AppData\Roaming\Superpowers`.
+
+Note that this project depends on [the `Text` asset plugin](https://github.com/florentpoujol/superpowers-text-asset-plugin), as well as this plugin (obviously).

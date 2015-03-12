@@ -1,5 +1,5 @@
 declare module fLang {
-  interface Congig {
+  interface Config {
     locales: string[];
     defaultLocale: string;
     currentLocale: string;
@@ -9,8 +9,8 @@ declare module fLang {
   }
   
   var config: Config;
-  var cache: { [key:string]: string };
-  var dictionariesByLocales: { [key:string]: Object };
+  var cache: any; // { [key:string]: string }
+  var dictionariesByLocales: any; // { [key:string]: Object }
   
   function get(key: string, replacements?: { [key:string]: string }): string;
 }

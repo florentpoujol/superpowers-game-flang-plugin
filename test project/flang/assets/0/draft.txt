@@ -1,0 +1,69 @@
+
+Sup.log("fLang");
+Sup.log(fLang);
+
+
+fLang.config.locales.push("fr");
+
+var en: any = Sup.get( "En", Sup.Text ).parseCSON();
+Sup.log(en);
+fLang.dictionariesByLocales.en = en;
+
+var fr: any = (<Sup.Text>Sup.get( "Fr" )).parseJSON();
+Sup.log(fr);
+fLang.dictionariesByLocales.fr = fr;
+
+
+Sup.log("----------------------------");
+Sup.log("Expected: " + en.localeName);
+Sup.log( fLang.get( "localeName" ) );
+
+
+Sup.log("----------------------------");
+Sup.log("Expected: " + en.greetings.welcome);
+Sup.log( fLang.get( "greetings.welcome" ) );
+
+
+Sup.log("----------------------------");
+Sup.log("Expected: " + fr.greetings.welcome);
+Sup.log( fLang.get( "fr.greetings.welcome" ) );
+
+
+Sup.log("----------------------------");
+fLang.config.searchInDefaultLocale = false;
+Sup.log("Expected printed twice in the console: Lang.get(): Key not found:");
+Sup.log( fLang.get( "fr.localeName" ) );
+fLang.config.searchInDefaultLocale = true;
+
+
+Sup.log("----------------------------");
+Sup.log("Expected: " + en.localeName);
+Sup.log( fLang.get( "fr.localeName" ) );
+
+
+Sup.log("----------------------------");
+Sup.log("Expected: Welcome Florent!");
+Sup.log( fLang.get( "greetings.welcome", { player_name: "Florent" } ) );
+
+Sup.log("----------------------------");
+
+fLang.config.replacementPattern = ":text";
+fLang.dictionariesByLocales.fr.greetings.welcome = "Bienvenu :player_name!"
+delete fLang.cache["fr.greetings.welcome"];
+fLang.config.currentLocale = "fr";
+
+Sup.log("Expected: Bienvenu Florent !");
+Sup.log( fLang.get( "greetings.welcome", { player_name: "Florent" } ) );
+
+
+Sup.log("----------------------------");
+fLang.config.locales.push("de");
+Sup.log("Expected: dictionary not found error printed in the console + returned");
+Sup.log( fLang.get( "de.localeName" ) );
+
+
+Sup.log("----------------------------");
+fLang.dictionariesByLocales.de = { localeName: 123 }; // wrong value type
+Sup.log("Expected: wrong type error printed in the console + returned");
+Sup.log( fLang.get( "de.localeName" ) );
+
