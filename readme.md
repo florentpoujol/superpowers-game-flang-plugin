@@ -8,7 +8,7 @@ This plugin for [Superpowers, the extensible HTML5 2D+3D game engine](http://spa
 
 ## Installation
 
-[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases) and unzip it.
+[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases) then unzip it.
 
 Rename the folder if you want then move it inside `app/plugins/florentpoujol/`.
 
