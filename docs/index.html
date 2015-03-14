@@ -69,6 +69,15 @@
 				<p>This plugin for <a href="http://sparklinlabs.com">Superpowers, the extensible HTML5 2D+3D game engine</a>, exposes the <code>fLang</code> modules to the runtime, which allow for easy localization of any strings in your games.</p>
 				<h2 id="documentation">Documentation</h2>
 				<p><a href="http://florentpoujol.github.io/superpowers-flang-plugin">http://florentpoujol.github.io/superpowers-flang-plugin</a></p>
+				<h2 id="installation">Installation</h2>
+				<p><a href="https://github.com/florentpoujol/superpowers-flang-plugin/releases">Download the latest release</a> and unzip it.</p>
+				<p>Rename the folder if you want then move it inside <code>app/plugins/florentpoujol/</code>.</p>
+				<p>Finally restart your server.</p>
+				<p><strong>Advanced:</strong></p>
+				<p>The plugin is published as an npm package so you can get any version of it via <code>npm</code>:</p>
+				<pre><code>npm <span class="hljs-operator"><span class="hljs-keyword">install</span> sup-flang-<span class="hljs-keyword">plugin</span></span>
+</code></pre><p>The name of the vendors in the <code>app/plugins/</code> folder actually don&#39;t matter, but the plugin folders must be inside a vendor&#39;s folder.</p>
+				<p>So feel free to <code>npm install</code> plugins directly inside <code>app/plugins/</code> so that they are actually intalled in <code>app/plugins/node_modules/</code>.</p>
 				<h2 id="quick-reference">Quick reference</h2>
 				<p>Set the configuration in the <code>fLang.config</code> object.<br><a href="http://florentpoujol.github.io/superpowers-flang-plugin/interfaces/flang.config.html">Check the doc of the <code>Config</code> interface</a> for a description of each properties.</p>
 				<pre><code>fLang.config.<span class="hljs-variable">locales =</span> [<span class="hljs-string">"en"</span>, <span class="hljs-string">"fr"</span>]; // the default value is [<span class="hljs-string">"en"</span>]
@@ -109,7 +118,11 @@ fLang.dictionariesByLocales.fr.greetings.<span class="hljs-variable">welcome =</
 fLang.config.<span class="hljs-variable">currrentLocale =</span> <span class="hljs-string">"fr"</span>;
 var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-string">"greetings.welcome"</span>, { player_name: <span class="hljs-string">"Florent"</span> } ); 
 // Bienvenu Florent !
-</code></pre>
+</code></pre><h2 id="test-project">Test project</h2>
+				<p>The <code>test project</code> folder contains a ... test project.  </p>
+				<p>To run it, put the project folder <code>fLang</code> in Superpowers&#39; projects folder, start the server, access the project then run it and open the console.</p>
+				<p>On Window, Superpowers&#39; projects folder is typically in <code>C:\Users\[Your user name]\AppData\Roaming\Superpowers</code>.</p>
+				<p>Note that this project depends on <a href="https://github.com/florentpoujol/superpowers-text-asset-plugin">the <code>Text</code> asset plugin</a>, as well as this plugin (obviously).</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

@@ -1,24 +1,19 @@
 {
-  "name": "superpowers-florentpoujol-flang-plugin",
+  "name": "sup-flang-plugin",
   "version": "0.1.0",
   "description": "Integration of the fLang module for easy localization to Superpowers, the extensible HTML5 2D+3D game engine.",
   "repository": {
     "type": "git",
     "url": "https://github.com/florentpoujol/superpowers-flang-plugin"
   },
-  "author": {
-    "name": "Florent Poujol",
-    "email": "florent.poujol@gmail.com",
-    "url": "http://florentpoujol.fr"
-  },
-  "dependencies": {
-  },
+  "author": "Florent Poujol <florent.poujol@gmail.com> (http://florentpoujol.fr)",
+  "dependencies": {},
   "devDependencies": {
     "typedoc": "0.2.x",
     "typescript": "1.4.x"
   },
-  "tags": [
-    "superpowers", 
+  "keywords": [
+    "superpowers",
     "plugin",
     "language",
     "lang",
@@ -34,9 +29,11 @@
     "mklink": "mklink /j \"../../superpowers/plugins/florentpoujol/fLang\" \"./\""
   },
   "maintainers": [
-    {
-      "name": "Florent Poujol",
-      "email": "florent.poujol@gmail.com"
-    }
-  ]
+    "Florent Poujol <florent.poujol@gmail.com>"
+  ],
+  "homepage": "https://github.com/florentpoujol/superpowers-flang-plugin",
+  "directories": {
+    "doc": "docs"
+  },
+  "license": "MIT"
 }
