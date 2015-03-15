@@ -47,7 +47,7 @@ Sup.log( fLang.get( "greetings.welcome", { player_name: "Florent" } ) );
 
 Sup.log("----------------------------");
 
-fLang.config.replacementPattern = ":text";
+fLang.config.replacementPattern = ":placeholder";
 fLang.dictionariesByLocales.fr.greetings.welcome = "Bienvenu :player_name!"
 delete fLang.cache["fr.greetings.welcome"];
 fLang.config.currentLocale = "fr";
