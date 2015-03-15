@@ -6,11 +6,10 @@ module fLang {
   
   /**
   * Interface for the `fLang.config` dictionary.
-  * See the the documentation of the `fLang.config` variable for a description of each properties and their default values.
   */
   export interface Config {
     /**
-    * The array that contains all of the locale (languages) names. <br>
+    * The array that contains all of the locale (languages) names. Names must not contains dot and should be kept short, like "en" or "fr" for instance.<br>
     * Default value is `["en"]`.
     */
     locales: string[];
@@ -35,8 +34,8 @@ module fLang {
 
     /**
     * The pattern (plain text, not regex) to recognize the placeholder texts to be replaced with values set in the `replacements` argument of `get()`. <br>
-    * The pattern must contain `"text"` that is replaced by the keys set in the `replacements` argument. <br>
-    * The default value is `"{{text}}"`.
+    * The pattern must contain `"placeholder"` that is replaced by the keys set in the `replacements` argument. <br>
+    * The default value is `"{{placeholder}}"`.
     */
     replacementPattern: string;
     
@@ -57,7 +56,7 @@ module fLang {
     defaultLocale: "en",
     currentLocale: "en",
     searchInDefaultLocale: true,
-    replacementPattern: "{{text}}",
+    replacementPattern: "{{placeholder}}",
     cache: true
   };
 
@@ -164,7 +163,7 @@ module fLang {
       // ie: replacements = { theKeyToSearchFor: "my new value" }
       for ( var replKey in replacements ) { // can't use var key, nor _key
         line = line.replace(
-          config.replacementPattern.replace( "text", replKey ), // ie: replace "{{text}}" by "{{theKeyToSearchFor}}"
+          config.replacementPattern.replace( "placeholder", replKey ), // ie: replace "{{placeholder}}" by "{{theKeyToSearchFor}}"
           replacements[ replKey ] 
         ); // replace "{{theKeyToSearchFor}}" by "my new value" in the line
       }
