@@ -36,10 +36,10 @@ Set the configuration in the `fLang.config` object.
     fLang.config.replacementPattern = "{{text}}";
     fLang.config.cache = true;
 
-Set the dictionaries as values in the `fLang.dictionariesByLocales` object.  
-The keys in `dictionariesByLocales` must be the locales set in the config.
+Set the dictionaries as values in the `fLang.dictionariesByLocale` object.  
+The keys in `dictionariesByLocale` must be the locales set in the config.
     
-    fLang.dictionariesByLocales.en = {
+    fLang.dictionariesByLocale.en = {
         localeName: "English",
  
         greetings: { // you may nest the keys
@@ -47,7 +47,7 @@ The keys in `dictionariesByLocales` must be the locales set in the config.
         }
     }
 
-    fLang.dictionariesByLocales.fr = {
+    fLang.dictionariesByLocale.fr = {
         greetings: {
             welcome: "Bienvenu {{player_name}}!"
         }
@@ -63,7 +63,7 @@ You can chain keys with a dot notation :
 
 You can specify a locale at the begining of the key to override the current locale:
 
-    var text = fLang.get( "fr.greetings.welcome" ); // Bienvenue {{player_name}}!
+    var text = fLang.get( "fr.greetings.welcome" ); // Bienvenu {{player_name}}!
 
 If `searchInDefaultLocale` is `true` in the config, keys not found in a locale may still return a value:
 
@@ -77,11 +77,33 @@ Pass a dictionary of placeholders/replacements as second argument to personalize
 You can define another replacement pattern via the config:
 
     fLang.config.replacementPattern = ":text";
-    fLang.dictionariesByLocales.fr.greetings.welcome = "Bienvenu :player_name!"
+    fLang.dictionariesByLocale.fr.greetings.welcome = "Bienvenu :player_name!"
 
     fLang.config.currrentLocale = "fr";
     var text = fLang.get( "greetings.welcome", { player_name: "Florent" } ); 
     // Bienvenu Florent !
+
+Update the current locale with the `update()` function.
+
+    var text = fLang.get( "greetings.welcome" ); // Welcome {{player_name}}!
+
+    fLang.udpate( "fr" );
+
+    var text = fLang.get( "greetings.welcome" ); // Bienvenu {{player_name}}!
+    
+The `update()` function makes the module's event emitter (`fLang.emitter`) emit the `"onUpdate"` event.  
+Register listeners functions via the `onUpdate()` function.
+
+    var fn = function(locale: string) {
+        console.log("The new current locale is "+locale);
+    }
+    fLang.onUpdate( fn );
+
+    fLang.udpate( "fr" ); // prints "The new current locale is fr"
+
+You can use this to automaticaly update texts when the user changes the locale.  
+Un-register listeners by passing them again to `onUpdate()` with the second argument set to `false`.
+
 
 ## Test project
 

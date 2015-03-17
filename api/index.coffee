@@ -1,3 +1,5 @@
+if window? then window.EventEmitter = require("events").EventEmitter
+
 fs = require 'fs'
 
 SupAPI.addPlugin 'typescript', 'fLang', {

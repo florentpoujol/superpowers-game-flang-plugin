@@ -1,3 +1,8 @@
+
+// full documentation:
+// http://florentpoujol.github.io/superpowers-flang-plugin
+// <a href="http://florentpoujol.github.io/superpowers-flang-plugin">http://florentpoujol.github.io/superpowers-flang-plugin</a>
+
 declare module fLang {
   interface Config {
     locales: string[];
@@ -9,8 +14,11 @@ declare module fLang {
   }
   
   var config: Config;
+  var emitter: any; // node's EventEmitter
   var cache: any; // { [key:string]: string }
-  var dictionariesByLocales: any; // { [key:string]: Object }
+  var dictionariesByLocale: any; // { [key:string]: Object }
   
   function get(key: string, replacements?: { [key:string]: string }): string;
+  function update(newCurrentLocale: string);
+  function onUpdate(listener: (locale: string)=>void, removeListener?: boolean); // default = false
 }

@@ -1,5 +1,10 @@
 
 /**
+* @private
+*/
+declare var EventEmitter;
+
+/**
 * A module for simple and easy localization.
 */
 module fLang {
@@ -61,6 +66,11 @@ module fLang {
   };
 
   /**
+  * The module's event emitter (an instance of node's `events.EventEmitter`).
+  */
+  export var emitter = new EventEmitter();
+
+  /**
   * A cache for the keys and their values. All keys contains the locale name as their first chunk. <br>
   * The content is of type `{ [key:string]: string }`.
   */
@@ -72,8 +82,8 @@ module fLang {
   * The values are single or multilevel dictionaries in which all keys and values should be strings. <br>
   * The content must be of type `{ [key:string]: Object }` and the default value is `{ en: {} }`.
   */
-  export var dictionariesByLocales: any;
-  dictionariesByLocales = { en: {} };
+  export var dictionariesByLocale: any;
+  dictionariesByLocale = { en: {} };
 
   /**
   * Retrieve a localized string from its key in the current locale or the locale specified as first chunk of the key. <br>
@@ -107,10 +117,10 @@ module fLang {
         // now we really need to retrieve a line from a dictionnary
 
         // check if dictionary exists
-        var dico: any = dictionariesByLocales[ locale ]; // speicying the type any makes the compiler happy when writing "line = dico;" below
+        var dico: any = dictionariesByLocale[ locale ]; // speicying the type any makes the compiler happy when writing "line = dico;" below
         if ( dico === undefined ) {
           var error = "fLang.get(): Dictionary not found for locale '"+locale+"'.";
-          console.error( error, "  Key:", key, "  Dictionaries:", dictionariesByLocales );
+          console.error( error, "  Key:", key, "  Dictionaries:", dictionariesByLocale );
           return error;
         }
 
@@ -150,7 +160,7 @@ module fLang {
       // test the type here to get a unified error message
       // otherwise, caching, replacing and returning the non-string value should all throw a different error message
       var error = "fLang.get(): Provided key '" + key + "' does not lead to a string but to a value of type '" + type + "'."
-      console.error( error, "  Value:", line, "  Dictionary:", fLang.dictionariesByLocales[ locale ] );
+      console.error( error, "  Value:", line, "  Dictionary:", fLang.dictionariesByLocale[ locale ] );
       return error;
     }
 
@@ -171,4 +181,29 @@ module fLang {
 
     return line;
   };
+
+  /**
+  * Sets the new current locale and emit the `"onUpdate"` event, passing the new locale as first and only argument.
+  * @param newCurrentLocale The new current locale name (as set in the `fLang.config.locales` array).
+  */
+  export function update( newCurrentLocale: string ) {
+    if ( config.locales.indexOf( newCurrentLocale ) === -1 ) {
+      console.error( "fLang.update(): Provided new current locale '"+newCurrentLocale+"' is not one of the registered locales.", config.locales );
+      return;
+    }
+    config.currentLocale = newCurrentLocale;
+    emitter.emit( "onUpdate", newCurrentLocale );
+  }
+
+  /**
+  * Add or remove listeners functions for the `"onUpdate"` event.
+  * @param listener The listener function for the `"onUpdate"` event. The function receive the new current locale as its first and only argument.
+  * @param removeListener Tell whether you want to remove the provided listener from the listeners of the `"onUpdate"` event.
+  */
+  export function onUpdate( listener: (locale: string)=>void, removeListener: boolean = false ) {
+    if ( removeListener === true )
+      emitter.removeListener( "onUpdate", listener );
+    else
+      emitter.addListener( "onUpdate", listener );
+  }
 }

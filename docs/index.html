@@ -908,12 +908,24 @@ input[type=checkbox]:checked + .tsd-widget:before { background-position: -160px 
 					<a href="index.html#flang.config-1" class="tsd-kind-icon">config</a>
 				</li>
 				<li class=" tsd-kind-variable tsd-parent-kind-module">
-					<a href="index.html#flang.dictionariesbylocales" class="tsd-kind-icon">dictionaries<wbr>ByLocales</a>
+					<a href="index.html#flang.dictionariesbylocale" class="tsd-kind-icon">dictionaries<wbr>ByLocale</a>
+				</li>
+				<li class=" tsd-kind-variable tsd-parent-kind-module">
+					<a href="index.html#flang.emitter" class="tsd-kind-icon">emitter</a>
 				</li>
 				<li class=" tsd-kind-function tsd-parent-kind-module">
 					<a href="index.html#flang.get" class="tsd-kind-icon">get</a>
 				</li>
+				<li class=" tsd-kind-function tsd-parent-kind-module">
+					<a href="index.html#flang.onupdate" class="tsd-kind-icon">on<wbr>Update</a>
+				</li>
+				<li class=" tsd-kind-function tsd-parent-kind-module">
+					<a href="index.html#flang.update" class="tsd-kind-icon">update</a>
+				</li>
 			</ul>
+		</li>
+		<li class=" tsd-kind-variable tsd-is-private tsd-is-not-exported">
+			<a href="index.html#eventemitter" class="tsd-kind-icon">Event<wbr>Emitter</a>
 		</li>
 	</ul>
 </nav>
@@ -987,6 +999,44 @@ fLang.dictionariesByLocales.fr.greetings.<span class="hljs-variable">welcome =</
 fLang.config.<span class="hljs-variable">currrentLocale =</span> <span class="hljs-string">"fr"</span>;
 var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-string">"greetings.welcome"</span>, { player_name: <span class="hljs-string">"Florent"</span> } ); 
 // Bienvenu Florent !
+</code></pre><h2 id="updating-the-current-locale">Updating the current locale</h2>
+			<p>Use the <code>update()</code> function:</p>
+			<pre><code><span class="hljs-keyword">var</span> text = fLang.<span class="hljs-keyword">get</span>( <span class="hljs-string">"greetings.welcome"</span> ); <span class="hljs-comment">// Welcome {{player_name}}!</span>
+
+fLang.udpate( <span class="hljs-string">"fr"</span> );
+
+<span class="hljs-keyword">var</span> text = fLang.<span class="hljs-keyword">get</span>( <span class="hljs-string">"greetings.welcome"</span> ); <span class="hljs-comment">// Bienvenu {{player_name}}!</span>
+</code></pre><p>The <code>update()</code> function makes the module&#39;s event emitter (<code>fLang.emitter</code>) emit the <code>&quot;onUpdate&quot;</code> event.<br>Register listeners functions via the <code>onUpdate()</code> function.</p>
+			<pre><code><span class="hljs-keyword">var</span> fn = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(locale: string)</span> </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The new current locale is "</span>+locale);
+}
+fLang.onUpdate( fn );
+
+fLang.udpate( <span class="hljs-string">"fr"</span> ); <span class="hljs-comment">// prints "The new current locale is fr"</span>
+</code></pre><p>The listeners receive the new current locale as their first and only arguments</p>
+			<p>You can use this to automaticaly update texts when the user changes the locale.</p>
+			<pre><code><span class="hljs-comment">// suppose the actor has a `TextRenderer` component that displays text on-screen.</span>
+<span class="hljs-keyword">this</span>.actor.textRenderer.setText( fLang.<span class="hljs-keyword">get</span>( <span class="hljs-string">"ui.options.title"</span> ) ;
+
+fLang.onUpdate( <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(locale: string)</span> </span>{
+    <span class="hljs-keyword">this</span>.actor.textRenderer.setText( fLang.<span class="hljs-keyword">get</span>( <span class="hljs-string">"ui.options.title"</span> ) );
+} );
+</code></pre><p>For instance  this could change the name of the option menu whenever the player changes the locale.</p>
+			<p>Un-register listeners by passing them again to <code>onUpdate()</code> with the second argument set to <code>false</code>.</p>
+			<pre><code><span class="hljs-keyword">var</span> fn = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(locale: string)</span> </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The new current locale is "</span>+locale);
+}
+
+<span class="hljs-comment">// register the listener:</span>
+fLang.onUpdate( fn ); <span class="hljs-comment">// or fLang.onUpdate( fn, true );</span>
+
+<span class="hljs-comment">// un-register the listener:</span>
+fLang.onUpdate( fn, <span class="hljs-literal">false</span> );
+</code></pre><p>As the functions passed to <code>onUpdate()</code> are listeners and not callbacks, you can set several of them (if you need to update several texts, for instance).</p>
+			<p>If you work with an actor, a component or anything that is destroyed at some point, you really need to make sure these objects exists before working on them in the listeners.<br>You also need to make sure that the listeners are removed when they are not needed anymore, like when the scene changes and all the actors/components are destroyed.</p>
+			<p>Remember that if needed, you can work on the emitter directly:</p>
+			<pre><code><span class="hljs-comment">// for instance: remove all the listeners</span>
+fLang.<span class="hljs-keyword">emitter</span>.removeAllListeners();
 </code></pre>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
@@ -1000,6 +1050,12 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 							<li class="tsd-kind-module tsd-is-not-exported"><a href="index.html#flang" class="tsd-kind-icon">f<wbr>Lang</a></li>
 						</ul>
 					</section>
+					<section class="tsd-index-section tsd-is-private tsd-is-private-protected tsd-is-not-exported">
+						<h3>Variables</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-variable tsd-is-private tsd-is-not-exported"><a href="index.html#eventemitter" class="tsd-kind-icon">Event<wbr>Emitter</a></li>
+						</ul>
+					</section>
 				</div>
 			</section>
 		</section>
@@ -1011,7 +1067,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 				<div class="tsd-signature tsd-kind-icon">f<wbr>Lang<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L5">fLang.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L10">fLang.ts:10</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1025,7 +1081,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 					<div class="tsd-signature tsd-kind-icon">Config<span class="tsd-signature-symbol">:</span> </div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L10">fLang.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L15">fLang.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1039,7 +1095,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L46">fLang.ts:46</a></li>
+								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L51">fLang.ts:51</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1055,7 +1111,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<div class="tsd-signature tsd-kind-icon">current<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L27">fLang.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L32">fLang.ts:32</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1071,7 +1127,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<div class="tsd-signature tsd-kind-icon">default<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L21">fLang.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L26">fLang.ts:26</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1087,7 +1143,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<div class="tsd-signature tsd-kind-icon">locales<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L15">fLang.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L20">fLang.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1103,7 +1159,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<div class="tsd-signature tsd-kind-icon">replacement<wbr>Pattern<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L40">fLang.ts:40</a></li>
+								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L45">fLang.ts:45</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1120,7 +1176,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<div class="tsd-signature tsd-kind-icon">search<wbr>InDefault<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L33">fLang.ts:33</a></li>
+								<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L38">fLang.ts:38</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1137,7 +1193,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 					<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L67">fLang.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L77">fLang.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1153,7 +1209,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="index.html#flang.config" class="tsd-signature-type">Config</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L53">fLang.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L58">fLang.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1164,12 +1220,12 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="flang.dictionariesbylocales" class="tsd-anchor"></a>
-					<h3>dictionaries<wbr>ByLocales</h3>
-					<div class="tsd-signature tsd-kind-icon">dictionaries<wbr>ByLocales<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="flang.dictionariesbylocale" class="tsd-anchor"></a>
+					<h3>dictionaries<wbr>ByLocale</h3>
+					<div class="tsd-signature tsd-kind-icon">dictionaries<wbr>ByLocale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L75">fLang.ts:75</a></li>
+							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L85">fLang.ts:85</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1178,6 +1234,21 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 								The keys are the locale names as defined in the <code>fLang.config.locales</code> array. <br>
 								The values are single or multilevel dictionaries in which all keys and values should be strings. <br>
 							The content must be of type <code>{ [key:string]: Object }</code> and the default value is <code>{ en: {} }</code>.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="flang.emitter" class="tsd-anchor"></a>
+					<h3>emitter</h3>
+					<div class="tsd-signature tsd-kind-icon">emitter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L71">fLang.ts:71</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The module&#39;s event emitter (an instance of node&#39;s <code>events.EventEmitter</code>).</p>
 						</div>
 					</div>
 				</section>
@@ -1191,7 +1262,7 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L85">fLang.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L95">fLang.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1227,6 +1298,113 @@ var <span class="hljs-variable">text =</span> fLang.get( <span class="hljs-strin
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="flang.onupdate" class="tsd-anchor"></a>
+					<h3>on<wbr>Update</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Update<span class="tsd-signature-symbol">(</span>listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, removeListener<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L203">fLang.ts:203</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add or remove listeners functions for the <code>&quot;onUpdate&quot;</code> event.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>listener: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The listener function for the <code>&quot;onUpdate&quot;</code> event. The function receive the new current locale as its first and only argument.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>locale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>locale: <span class="tsd-signature-type">string</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns 
+														<span class="tsd-signature-type">void</span>
+													</h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> removeListener: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Tell whether you want to remove the provided listener from the listeners of the <code>&quot;onUpdate&quot;</code> event.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns 
+								<span class="tsd-signature-type">void</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="flang.update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>newCurrentLocale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L189">fLang.ts:189</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the new current locale and emit the <code>&quot;onUpdate&quot;</code> event, passing the new locale as first and only argument.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>newCurrentLocale: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The new current locale name (as set in the <code>fLang.config.locales</code> array).</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns 
+								<span class="tsd-signature-type">void</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected tsd-is-not-exported">
+			<h2>Variables</h2>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-private tsd-is-not-exported">
+				<a name="eventemitter" class="tsd-anchor"></a>
+				<h3>Event<wbr>Emitter</h3>
+				<div class="tsd-signature tsd-kind-icon">Event<wbr>Emitter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/florentpoujol/superpowers-flang-plugin/blob/dev/api/fLang.ts#L5">fLang.ts:5</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+				</div>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

@@ -110,3 +110,57 @@ You can define another replacement pattern via the config:
     var text = fLang.get( "greetings.welcome", { player_name: "Florent" } ); 
     // Bienvenu Florent !
 
+## Updating the current locale
+
+Use the `update()` function:
+
+    var text = fLang.get( "greetings.welcome" ); // Welcome {{player_name}}!
+
+    fLang.udpate( "fr" );
+
+    var text = fLang.get( "greetings.welcome" ); // Bienvenu {{player_name}}!
+    
+The `update()` function makes the module's event emitter (`fLang.emitter`) emit the `"onUpdate"` event.  
+Register listeners functions via the `onUpdate()` function.
+
+    var fn = function(locale: string) {
+        console.log("The new current locale is "+locale);
+    }
+    fLang.onUpdate( fn );
+
+    fLang.udpate( "fr" ); // prints "The new current locale is fr"
+
+The listeners receive the new current locale as their first and only arguments
+
+You can use this to automaticaly update texts when the user changes the locale.
+    
+    // suppose the actor has a `TextRenderer` component that displays text on-screen.
+    this.actor.textRenderer.setText( fLang.get( "ui.options.title" ) ;
+
+    fLang.onUpdate( function(locale: string) {
+        this.actor.textRenderer.setText( fLang.get( "ui.options.title" ) );
+    } );
+
+For instance  this could change the name of the option menu whenever the player changes the locale.
+
+Un-register listeners by passing them again to `onUpdate()` with the second argument set to `false`.
+
+    var fn = function(locale: string) {
+        console.log("The new current locale is "+locale);
+    }
+
+    // register the listener:
+    fLang.onUpdate( fn ); // or fLang.onUpdate( fn, true );
+
+    // un-register the listener:
+    fLang.onUpdate( fn, false );
+
+As the functions passed to `onUpdate()` are listeners and not callbacks, you can set several of them (if you need to update several texts, for instance).
+
+If you work with an actor, a component or anything that is destroyed at some point, you really need to make sure these objects exists before working on them in the listeners.  
+You also need to make sure that the listeners are removed when they are not needed anymore, like when the scene changes and all the actors/components are destroyed.
+
+Remember that if needed, you can work on the emitter directly:
+
+    // for instance: remove all the listeners
+    fLang.emitter.removeAllListeners();
