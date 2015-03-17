@@ -1,7 +1,6 @@
 
 // full documentation:
 // http://florentpoujol.github.io/superpowers-flang-plugin
-// <a href="http://florentpoujol.github.io/superpowers-flang-plugin">http://florentpoujol.github.io/superpowers-flang-plugin</a>
 
 declare module fLang {
   interface Config {
