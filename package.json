@@ -24,10 +24,14 @@
     "url": "https://github.com/florentpoujol/superpowers-flang-plugin/issues"
   },
   "scripts": {
-    "gendoc": "typedoc --out docs/ api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --verbose --theme minimal",
     "compilets": "tsc api/fLang.ts --out gitignore/fLang.js --module commonjs --target ES5",
-    "linkdev": "mklink /j \"../../app/plugins/florentpoujol/fLang\" \"./\"",
-    "linkrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\""
+    "gendoc": "typedoc --out docs/ api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --verbose --theme minimal",
+    
+    "linksrcdev": "mklink /j \"../../app/plugins/florentpoujol/fLang\" \"./\"",
+    "linksrcrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
+
+    "linkprojdev": "mklink /j \"../../app/projects/fLang\" \"./project/fLang\"",
+    "linkprojrelease": "mklink /j \"../../../localprojects/fLang\" \"./project/fLang\""
   },
   "maintainers": [
     "Florent Poujol <florent.poujol@gmail.com>"

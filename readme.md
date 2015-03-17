@@ -107,7 +107,7 @@ Un-register listeners by passing them again to `onUpdate()` with the second argu
 
 ## Test project
 
-The `test project` folder contains a ... test project.  
+The `project` folder contains a test project.  
 
 To run it, put the project folder `fLang` in Superpowers' projects folder, start the server, access the project then run it and open the console.
 

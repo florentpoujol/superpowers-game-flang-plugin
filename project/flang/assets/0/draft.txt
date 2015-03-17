@@ -7,11 +7,22 @@ fLang.config.locales.push("fr");
 
 var en: any = Sup.get( "En", Sup.Text ).parseCSON();
 Sup.log(en);
-fLang.dictionariesByLocales.en = en;
+fLang.dictionariesByLocale.en = en;
 
 var fr: any = (<Sup.Text>Sup.get( "Fr" )).parseJSON();
 Sup.log(fr);
-fLang.dictionariesByLocales.fr = fr;
+fLang.dictionariesByLocale.fr = fr
+
+
+var fn = function(locale) {
+  Sup.log("====================");
+  Sup.log("new locale");
+  Sup.log(locale);
+  Sup.log("====================");
+}
+
+fLang.onUpdate(fn);
+
 
 
 Sup.log("----------------------------");
@@ -48,9 +59,9 @@ Sup.log( fLang.get( "greetings.welcome", { player_name: "Florent" } ) );
 Sup.log("----------------------------");
 
 fLang.config.replacementPattern = ":placeholder";
-fLang.dictionariesByLocales.fr.greetings.welcome = "Bienvenu :player_name!"
+fLang.dictionariesByLocale.fr.greetings.welcome = "Bienvenu :player_name!"
 delete fLang.cache["fr.greetings.welcome"];
-fLang.config.currentLocale = "fr";
+fLang.update("fr");
 
 Sup.log("Expected: Bienvenu Florent !");
 Sup.log( fLang.get( "greetings.welcome", { player_name: "Florent" } ) );
@@ -63,7 +74,7 @@ Sup.log( fLang.get( "de.localeName" ) );
 
 
 Sup.log("----------------------------");
-fLang.dictionariesByLocales.de = { localeName: 123 }; // wrong value type
+fLang.dictionariesByLocale.de = { localeName: 123 }; // wrong value type
 Sup.log("Expected: wrong type error printed in the console + returned");
 Sup.log( fLang.get( "de.localeName" ) );
 
