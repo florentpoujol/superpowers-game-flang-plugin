@@ -20,9 +20,7 @@ The plugin is published as an npm package so you can get any version of it via `
 
     npm install sup-flang-plugin
 
-The name of the vendors in the `app/plugins/` folder actually don't matter, but the plugin folders must be inside a vendor's folder.
-
-So feel free to `npm install` plugins directly inside `app/plugins/` so that they are actually intalled in `app/plugins/node_modules/`.
+Note that the name of the vendors in the `app/plugins/` folder actually don't matter, it can be `node_modules`.
 
 ## Quick reference
 
