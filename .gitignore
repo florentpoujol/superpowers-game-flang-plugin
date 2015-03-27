@@ -3,3 +3,4 @@ node_modules/
 .sublimets
 tsconfig.json
 tsd.json
+project/*/builds/
