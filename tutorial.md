@@ -1,26 +1,22 @@
 # Superpowers fLang plugin
 
-This plugin for [Superpowers, the extensible HTML5 2D+3D game engine](http://sparklinlabs.com), exposes the `fLang` modules to the runtime, which allow for easy localization of any strings in your games.
+Ths plugin expose the `fLang` module to the TypeScript API of [Superpowers, the extensible HTML5 2D+3D game engine](http://sparklinlabs.com).  
+It allows for easy localization of any in-game strings.
 
 [Go back to the GitHub repo.](https://github.com/florentpoujol/superpowers-flang-plugin)
 
 ## Installation
 
-[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases) then unzip it.
-
-Rename the folder if you want then move it inside `app/plugins/florentpoujol/`.
-
-Finally restart your server.
+[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases) then unzip it.  
+Rename the folder in `flang`, move it inside `app/plugins/florentpoujol/` then restart your server.
 
 __Advanced:__
 
-The plugin is published as an npm package so you can get any version of it via `npm`:
+Get it via `npm`:
 
     npm install sup-flang-plugin
 
-The name of the vendors in the `app/plugins/` folder actually don't matter, but the plugin folders must be inside a vendor's folder.
-
-So feel free to `npm install` plugins directly inside `app/plugins/` so that they are actually intalled in `app/plugins/node_modules/`.
+Note that the name of the vendors in the `app/plugins/` folder actually don't matter, it can be `node_modules`.
 
 ## Configuration
 

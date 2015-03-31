@@ -933,17 +933,14 @@ input[type=checkbox]:checked + .tsd-widget:before { background-position: -160px 
 	<div class="content-wrap">
 		<div class="tsd-panel tsd-typography">
 			<h1 id="superpowers-flang-plugin">Superpowers fLang plugin</h1>
-			<p>This plugin for <a href="http://sparklinlabs.com">Superpowers, the extensible HTML5 2D+3D game engine</a>, exposes the <code>fLang</code> modules to the runtime, which allow for easy localization of any strings in your games.</p>
+			<p>Ths plugin expose the <code>fLang</code> module to the TypeScript API of <a href="http://sparklinlabs.com">Superpowers, the extensible HTML5 2D+3D game engine</a>.<br>It allows for easy localization of any in-game strings.</p>
 			<p><a href="https://github.com/florentpoujol/superpowers-flang-plugin">Go back to the GitHub repo.</a></p>
 			<h2 id="installation">Installation</h2>
-			<p><a href="https://github.com/florentpoujol/superpowers-flang-plugin/releases">Download the latest release</a> then unzip it.</p>
-			<p>Rename the folder if you want then move it inside <code>app/plugins/florentpoujol/</code>.</p>
-			<p>Finally restart your server.</p>
+			<p><a href="https://github.com/florentpoujol/superpowers-flang-plugin/releases">Download the latest release</a> then unzip it.<br>Rename the folder in <code>flang</code>, move it inside <code>app/plugins/florentpoujol/</code> then restart your server.</p>
 			<p><strong>Advanced:</strong></p>
-			<p>The plugin is published as an npm package so you can get any version of it via <code>npm</code>:</p>
+			<p>Get it via <code>npm</code>:</p>
 			<pre><code>npm <span class="hljs-operator"><span class="hljs-keyword">install</span> sup-flang-<span class="hljs-keyword">plugin</span></span>
-</code></pre><p>The name of the vendors in the <code>app/plugins/</code> folder actually don&#39;t matter, but the plugin folders must be inside a vendor&#39;s folder.</p>
-			<p>So feel free to <code>npm install</code> plugins directly inside <code>app/plugins/</code> so that they are actually intalled in <code>app/plugins/node_modules/</code>.</p>
+</code></pre><p>Note that the name of the vendors in the <code>app/plugins/</code> folder actually don&#39;t matter, it can be <code>node_modules</code>.</p>
 			<h2 id="configuration">Configuration</h2>
 			<p>The <code>fLang.config</code> object contains the module&#39;s configuration properties.</p>
 			<p><a href="http://florentpoujol.github.io/superpowers-flang-plugin/interfaces/flang.config.html">The <code>Config</code> interface describe in detail the expected properties</a> and their default value.</p>
