@@ -1,4 +1,4 @@
-// codemirror-theme:night
+// codemirror-mode: json
 
 {
   "greetings": {

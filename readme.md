@@ -7,7 +7,7 @@ It allows for easy localization of any in-game strings.
 
 [http://florentpoujol.github.io/superpowers-flang-plugin](http://florentpoujol.github.io/superpowers-flang-plugin)
 
-You can also find the doucmentation offline in the `public/docs` folder as well as access it offline via the [docs browser](https://github.com/florentpoujol/superpowers-docs-browser-plugin) plugin.
+You can also access it offline in Superpowers' client with the [docs browser](https://github.com/florentpoujol/superpowers-docs-browser-plugin) plugin, or find it directly in the plugin's `public/docs` folder.
 
 ## Installation
 

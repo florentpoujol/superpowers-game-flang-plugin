@@ -1,8 +1,8 @@
-// full documentation (tutorial + detailed API):
+// Full documentation at:
 // http://florentpoujol.github.io/superpowers-flang-plugin
 
-// You can also click the link in the "tools" section at the bottom of the sidebar in Superpowers' client
-// this will work event if you are offline 
+// You can also access it offline in the plugin's "public/docs" folder 
+// or via the "Plugins docs browser" tool provided by the "Docs browser" plugin: https://github.com/florentpoujol/superpowers-docs-browser-plugin
 
 declare module fLang {
   interface Config {

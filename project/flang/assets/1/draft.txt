@@ -1,5 +1,4 @@
 # codemirror-mode:coffeescript
-# codemirror-theme:monokai
 
 localeName: "English"
 
