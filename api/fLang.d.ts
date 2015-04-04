@@ -1,7 +1,11 @@
-// Full documentation at:
+// fLang plugin
+// https://github.com/florentpoujol/superpowers-flang-plugin
+// Easy localization of any in-game strings.
+
+// Documentation:
 // http://florentpoujol.github.io/superpowers-flang-plugin
 
-// You can also access it offline in the plugin's "public/docs" folder 
+// You can also access the documentation offline in the plugin's "public/docs" folder 
 // or via the "Plugins docs browser" tool provided by the "Docs browser" plugin: https://github.com/florentpoujol/superpowers-docs-browser-plugin
 
 declare module fLang {
