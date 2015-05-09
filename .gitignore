@@ -1,6 +1,5 @@
 gitignore/
 node_modules/
-.sublimets
-tsconfig.json
-tsd.json
 project/*/builds/
+project/*/internals.json
+project/*/members.json

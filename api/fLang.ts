@@ -1,8 +1,4 @@
-
-/**
-* @private
-*/
-declare var EventEmitter;
+/// <reference path="../gitignore/EventEmitter.d.ts" />
 
 /**
 * A module for simple and easy localization.
@@ -66,7 +62,7 @@ module fLang {
   };
 
   /**
-  * The module's event emitter (an instance of node's `events.EventEmitter`).
+  * The module's event emitter.
   */
   export var emitter = new EventEmitter();
 

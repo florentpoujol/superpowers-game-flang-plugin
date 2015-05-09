@@ -19,7 +19,7 @@ declare module fLang {
   }
   
   var config: Config;
-  var emitter: any; // node's EventEmitter
+  var emitter: EventEmitter;
   var cache: any; // { [key:string]: string }
   var dictionariesByLocale: any; // { [key:string]: Object }
   

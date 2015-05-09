@@ -30,7 +30,7 @@
     "linksrcdev": "mklink /j \"../../app/plugins/florentpoujol/fLang\" \"./\"",
     "linksrcrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
 
-    "linkprojdev": "mklink /j \"../../app/projects/fLang\" \"./project/fLang\"",
+    "linkprojdev": "mklink /j \"../../data/projects/fLang\" \"./project/fLang\"",
     "linkprojrelease": "mklink /j \"../../../localprojects/fLang\" \"./project/fLang\""
   },
   "maintainers": [
