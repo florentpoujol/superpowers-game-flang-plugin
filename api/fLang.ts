@@ -64,7 +64,7 @@ module fLang {
   /**
   * The module's event emitter.
   */
-  export var emitter = new EventEmitter();
+  export var emitter = new window.EventEmitter(); // provided by Sparklinlabs' eventEmitter plugin
 
   /**
   * A cache for the keys and their values. All keys contains the locale name as their first chunk. <br>

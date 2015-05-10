@@ -6,7 +6,7 @@
 // http://florentpoujol.github.io/superpowers-flang-plugin
 
 // You can also access the documentation offline in the plugin's "public/docs" folder 
-// or via the "Plugins docs browser" tool provided by the "Docs browser" plugin: https://github.com/florentpoujol/superpowers-docs-browser-plugin
+// or via the "Docs browser" tool provided by the "Docs browser" plugin: https://github.com/florentpoujol/superpowers-docs-browser-plugin
 
 declare module fLang {
   interface Config {
