@@ -203,3 +203,6 @@ module fLang {
       emitter.addListener( "onUpdate", listener );
   }
 }
+
+// expose to the runtime
+(<any>window).fLang = fLang;
