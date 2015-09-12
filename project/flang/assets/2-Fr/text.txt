@@ -1,7 +1,0 @@
-// codemirror-mode: json
-
-{
-  "greetings": {
-    "welcome": "Bienvenu {{player_name}} !"
-  }
-}

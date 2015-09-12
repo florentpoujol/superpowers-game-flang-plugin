@@ -13,15 +13,6 @@ You can also access it offline in Superpowers' client with the [docs browser](ht
 
 [Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/plugins/florentpoujol/` then restart your server.
 
-__Advanced:__
-
-Get it via `npm`:
-
-    npm install sup-flang-plugin
-
-The name of the vendors or plugins in the `app/plugins/` folder don't matter.  
-So you can leave the plugin path as `node_modules/sup-flang-plugin`.
-
 ## Quick reference
 
 Set the configuration in the `fLang.config` object.   

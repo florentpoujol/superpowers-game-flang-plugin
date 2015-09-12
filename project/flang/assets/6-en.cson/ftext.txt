@@ -1,5 +1,3 @@
-# codemirror-mode:cson
-
 localeName: "English"
 
 greetings:

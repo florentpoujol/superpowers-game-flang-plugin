@@ -10,14 +10,6 @@ It allows for easy localization of any in-game strings.
 [Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases) then unzip it.  
 Rename the folder in `flang`, move it inside `app/plugins/florentpoujol/` then restart your server.
 
-__Advanced:__
-
-Get it via `npm`:
-
-    npm install sup-flang-plugin
-
-Note that the name of the vendors in the `app/plugins/` folder actually don't matter, it can be `node_modules`.
-
 ## Configuration
 
 The `fLang.config` object contains the module's configuration properties.

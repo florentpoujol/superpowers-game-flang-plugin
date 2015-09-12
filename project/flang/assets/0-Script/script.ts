@@ -5,11 +5,11 @@ Sup.log(fLang);
 
 fLang.config.locales.push("fr");
 
-var en: any = Sup.get( "En", Sup.Text ).parseCSON();
+var en: any = Sup.get( "en.cson", fText ).parse();
 Sup.log(en);
 fLang.dictionariesByLocale.en = en;
 
-var fr: any = (<Sup.Text>Sup.get( "Fr" )).parseJSON();
+var fr: any = (<fText>Sup.get( "fr.json" )).parse();
 Sup.log(fr);
 fLang.dictionariesByLocale.fr = fr
 

@@ -5,13 +5,13 @@
     "type": "script"
   },
   {
-    "id": "1",
-    "name": "En",
-    "type": "text"
+    "id": "6",
+    "name": "en.cson",
+    "type": "fText"
   },
   {
-    "id": "2",
-    "name": "Fr",
-    "type": "text"
+    "id": "7",
+    "name": "fr.json",
+    "type": "fText"
   }
 ]

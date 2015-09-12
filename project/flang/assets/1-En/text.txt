@@ -1,8 +1,0 @@
-# codemirror-mode:cson
-
-localeName: "English"
-
-greetings:
-  welcome: """
-  Welcome {{player_name}}!
-  """

@@ -1,6 +1,6 @@
 {
   "name": "sup-flang-plugin",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Easy localization for Superpowers, the extensible HTML5 2D+3D game engine.",
   "repository": {
     "type": "git",
