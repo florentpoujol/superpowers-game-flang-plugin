@@ -25,7 +25,7 @@
   },
   "scripts": {
     "compilets": "tsc api/fLang.ts --out gitignore/fLang.js --module commonjs --target ES5",
-    "gendoc": "typedoc --out public/docs api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --verbose --theme minimal",
+    "gendoc": "typedoc --out gitignore/docs api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --theme minimal",
     
     "linksrcdev": "mklink /j \"../../app/plugins/florentpoujol/fLang\" \"./\"",
     "linksrcrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
