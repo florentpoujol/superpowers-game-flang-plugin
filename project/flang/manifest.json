@@ -1,5 +1,7 @@
 {
   "name": "fLang",
   "description": "",
-  "id": "MaXs"
+  "id": "MaXs",
+  "formatVersion": 2,
+  "system": "supGame"
 }

@@ -1,7 +1,7 @@
 {
   "name": "sup-flang-plugin",
-  "version": "0.2.3",
-  "description": "Easy localization for Superpowers, the extensible HTML5 2D+3D game engine.",
+  "version": "0.3.0",
+  "description": "Easy localization for the supGame system for Superpowers, the extensible HTML5 2D+3D game engine.",
   "repository": {
     "type": "git",
     "url": "https://github.com/florentpoujol/superpowers-flang-plugin"
@@ -10,7 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "typedoc": "0.2.x",
-    "typescript": "1.4.x"
+    "typescript": "1.6.x"
   },
   "keywords": [
     "superpowers",
@@ -27,18 +27,15 @@
     "compilets": "tsc api/fLang.ts --out gitignore/fLang.js --module commonjs --target ES5",
     "gendoc": "typedoc --out gitignore/docs api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --theme minimal",
     
-    "linksrcdev": "mklink /j \"../../app/plugins/florentpoujol/fLang\" \"./\"",
-    "linksrcrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
+    "linkplugindev": "mklink /j \"../../app/systems/supGame/plugins/florentpoujol/fLang\" \"./\"",
+    "linkprojectdev": "mklink /j \"../../data/projects/fLang\" \"./project/fLang\"",
 
-    "linkprojdev": "mklink /j \"../../data/projects/fLang\" \"./project/fLang\"",
-    "linkprojrelease": "mklink /j \"../../../localprojects/fLang\" \"./project/fLang\""
+    "linkpluginrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
+    "linkprojectrelease": "mklink /j \"../../../release/data/projects/fLang\" \"./project/fLang\""
   },
   "maintainers": [
     "Florent Poujol <florent.poujol@gmail.com>"
   ],
   "homepage": "https://github.com/florentpoujol/superpowers-flang-plugin",
-  "directories": {
-    "doc": "docs"
-  },
   "license": "MIT"
 }
