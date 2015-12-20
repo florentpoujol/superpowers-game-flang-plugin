@@ -1,9 +1,9 @@
-/// <reference path="../gitignore/EventEmitter.d.ts" />
+/// <reference path="../index.d.ts" />
 
 /**
 * A module for simple and easy localization.
 */
-module fLang {
+namespace fLang {
   
   /**
   * Interface for the `fLang.config` dictionary.
@@ -51,7 +51,7 @@ module fLang {
   * The module's configuration. <br>
   * See the `Config` interface for a description of each properties and their default values.
   */
-  export var config: Config; // this two-step function is need for typedoc to consider config as a variable instead of an object literals
+  export var config: Config; // this two-step thing is need for typedoc to consider config as a variable instead of an object literals
   config = {
     locales: ["en"],
     defaultLocale: "en",
@@ -63,6 +63,7 @@ module fLang {
 
   /**
   * The module's event emitter.
+  * The only event ever emitted is "fLangUpdate".
   */
   export var emitter = new (<any>window).EventEmitter(); // provided by Sparklinlabs' eventEmitter plugin
 
@@ -188,19 +189,28 @@ module fLang {
       return;
     }
     config.currentLocale = newCurrentLocale;
-    emitter.emit( "onUpdate", newCurrentLocale );
+    emitter.emit( "fLangUpdate", newCurrentLocale );
   }
 
-  /**
-  * Add or remove listeners functions for the `"onUpdate"` event.
-  * @param listener The listener function for the `"onUpdate"` event. The function receive the new current locale as its first and only argument.
-  * @param removeListener Tell whether you want to remove the provided listener from the listeners of the `"onUpdate"` event.
-  */
-  export function onUpdate( listener: (locale: string)=>void, removeListener: boolean = false ) {
-    if ( removeListener === true )
-      emitter.removeListener( "onUpdate", listener );
+  export function setDictionary(language: string, dictionary: Object|string) {
+    let dico: any;
+
+    if (typeof dictionary === "string") {
+      if (window["fText"] != null) {
+        dico = window["Sup"].get(<string>dictionary, window["fText"]).parse();
+      }
+      else {
+        console.error("fLang.setDictionary(): You passed the following arguments but the fText plugin doesn't appear to be installed.", language, dictionary);
+        return;
+      }
+    }
     else
-      emitter.addListener( "onUpdate", listener );
+      dico = <any>dictionary;
+
+    if (config.locales.indexOf(language) === -1)
+      config.locales.push(language);
+
+    dictionariesByLocale[language] = dico;
   }
 }
 

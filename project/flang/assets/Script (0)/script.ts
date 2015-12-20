@@ -3,15 +3,16 @@ Sup.log("fLang");
 Sup.log(fLang);
 
 
-fLang.config.locales.push("fr");
-
 var en: any = Sup.get( "en.cson", fText ).parse();
-Sup.log(en);
-fLang.dictionariesByLocale.en = en;
+// Sup.log(en);
+// fLang.dictionariesByLocale.en = en;
+fLang.setDictionary("en", en);
 
-var fr: any = (<fText>Sup.get( "fr.json" )).parse();
-Sup.log(fr);
-fLang.dictionariesByLocale.fr = fr
+// fLang.config.locales.push("fr");
+// var fr: any = (<fText>Sup.get( "fr.json" )).parse();
+// Sup.log(fr);
+// fLang.dictionariesByLocale.fr = fr
+fLang.setDictionary("fr", "fr.json");
 
 
 var fn = function(locale) {
@@ -21,7 +22,7 @@ var fn = function(locale) {
   Sup.log("====================");
 }
 
-fLang.onUpdate(fn);
+fLang.emitter.on("flangUpdate", fn);
 
 
 
@@ -36,7 +37,7 @@ Sup.log( fLang.get( "greetings.welcome" ) );
 
 
 Sup.log("----------------------------");
-Sup.log("Expected: " + fr.greetings.welcome);
+Sup.log("Expected: " + fLang.dictionariesByLocale.fr.greetings.welcome);
 Sup.log( fLang.get( "fr.greetings.welcome" ) );
 
 

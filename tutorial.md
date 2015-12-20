@@ -2,7 +2,7 @@
 
 Ths plugin allows for easy localization of any in-game strings if the `Sup Game` system for [Superpowers, the extensible HTML5 2D+3D game engine](http://sparklinlabs.com).  
 
-It expose the `fLang` module to the TypeScript API.
+It expose the `fLang` namespace to the TypeScript API.
 
 [Go back to the GitHub repo.](https://github.com/florentpoujol/superpowers-flang-plugin)
 
@@ -26,10 +26,7 @@ So you can leave the plugin path as `node_modules/sup-flang-plugin`.
 
 The `fLang.config` object contains the module's configuration properties.
 
-[The `Config` interface describe in detail the expected properties](http://florentpoujol.github.io/superpowers-flang-plugin/interfaces/flang.config.html) and their default value.
-
-    // Set two locales, english and french.
-    fLang.config.locales = ["en", "fr"]; 
+[The `Config` interface describe in detail the expected properties](#flang.config) and their default value.
 
 
 ## Dictionaries
@@ -38,40 +35,38 @@ Each of the localized strings in your game are identified by a key, unique accro
 
 The keys must not contains dot and the first-level keys must not be any of the locale name.
 
-The key/string pairs for each locales must be set in an object as value of the locale name in the `fLang.dictionariesByLocales` object.
+The key/string pairs for each locales must be set with the `setDictionary(language: string, dictionary: Object|string)` function :
 
-    
-    fLang.dictionariesByLocales.en = {
-        localeName: "English",
- 
-        greetings: { // you may nest the keys
-            welcome: "Welcome {{player_name}}!"
-        }
-    }
+    let en: any = {
+      localeName: "English",
 
-    fLang.dictionariesByLocales.fr = {
-        greetings: {
-            welcome: "Bienvenu {{player_name}} !"
-        }
-    }
+      greetings: { // you may nest the keys
+        welcome: "Welcome {{player_name}}!"
+      }
+    };
+    fLang.setDictionary("en", en);
 
-### Writting dictionaries in specialized text assets
+    fLang.setDictionary("fr", {
+      greetings: {
+        welcome: "Bienvenu {{player_name}} !"
+      }
+    });
 
-For convenience and ease of use, you can [use a `text` asset](https://github.com/florentpoujol/superpowers-text-asset-plugin) to write your localization dictionaries, instead of writing a Javascript object directlyin a `script` asset like in the example above.
+### Writting dictionaries in fText assets
 
-For instance, the english dictionary has been written in a `"English"` text asset with a `CSON` syntax, then has been retrieved and set in the `dictionariesByLocales` object from a script.
+For convenience and ease of use, you can [use a `fText` asset](https://github.com/florentpoujol/superpowers-ftext-plugin) to write your localization dictionaries, instead of writing a Javascript object directly in a script asset like in the example above.
 
-    # codemirror-mode:cson
+Note that you can only use the extensions that are parsed to a Javascript object, like `json`, `cson`, and `yml`.
+
+For instance, the english dictionary has been written in a `"en.cson"` asset :
 
     localeName: "English"
     greetings:
         welcome: "Welcome {{player_name}}!"
 
-Then from a script:
+Then pass the asset's path to the  `setDictionary()` function:
 
-    fLang.config.locales = ["en", "fr"];
-
-    fLang.dictionariesByLocales.en = Sup.get("English", Sup.Text).parse();
+    fLang.setDictionary("fr", "en.cson");
 
 
 ## Retrieve a string
@@ -104,11 +99,10 @@ Pass a dictionary of placeholders/replacements as second argument to personalize
 You can define another replacement pattern via the config:
 
     fLang.config.replacementPattern = ":placeholder";
-    fLang.dictionariesByLocales.fr.greetings.welcome = "Bienvenu :player_name!"
+    fLang.dictionariesByLocales.en.greetings.welcome = "Welcome :player_name!"
 
-    fLang.config.currrentLocale = "fr";
     var text = fLang.get( "greetings.welcome", { player_name: "Florent" } ); 
-    // Bienvenu Florent !
+    // Welcome Florent!
 
 ## Updating the current locale
 
@@ -118,49 +112,31 @@ Use the `update()` function:
 
     fLang.udpate( "fr" );
 
-    var text = fLang.get( "greetings.welcome" ); // Bienvenu {{player_name}}!
+    var text = fLang.get( "greetings.welcome" ); // Bienvenu {{player_name}} !
     
-The `update()` function makes the module's event emitter (`fLang.emitter`) emit the `"onUpdate"` event.  
-Register listeners functions via the `onUpdate()` function.
+The `update()` function makes the event emitter (`fLang.emitter`) emit the `"fLangUpdate"` event.  
 
-    var fn = function(locale: string) {
-        console.log("The new current locale is "+locale);
-    }
-    fLang.onUpdate( fn );
+    fLang.emitter.on("fLangUpdate", (locale: string) => {
+      console.log("The new current locale is "+locale);
+    });
 
     fLang.udpate( "fr" ); // prints "The new current locale is fr"
 
-The listeners receive the new current locale as their first and only arguments
-
+The listeners receive the new current locale as their first and only arguments.  
 You can use this to automaticaly update texts when the user changes the locale.
     
     // suppose the actor has a `TextRenderer` component that displays text on-screen.
     this.actor.textRenderer.setText( fLang.get( "ui.options.title" ) ;
 
-    fLang.onUpdate( function(locale: string) {
+    fLang.emitter.on("fLangUpdate", function(locale: string) {
         this.actor.textRenderer.setText( fLang.get( "ui.options.title" ) );
-    } );
+    });
 
-For instance  this could change the name of the option menu whenever the player changes the locale.
-
-Un-register listeners by passing them again to `onUpdate()` with the second argument set to `false`.
-
-    var fn = function(locale: string) {
-        console.log("The new current locale is "+locale);
-    }
-
-    // register the listener:
-    fLang.onUpdate( fn ); // or fLang.onUpdate( fn, true );
-
-    // un-register the listener:
-    fLang.onUpdate( fn, false );
-
-As the functions passed to `onUpdate()` are listeners and not callbacks, you can set several of them (if you need to update several texts, for instance).
+For instance this could change the name of the option menu whenever the player changes the locale.
 
 If you work with an actor, a component or anything that is destroyed at some point, you really need to make sure these objects exists before working on them in the listeners.  
-You also need to make sure that the listeners are removed when they are not needed anymore, like when the scene changes and all the actors/components are destroyed.
 
-Remember that if needed, you can work on the emitter directly:
+You also need to make sure that the listeners are removed when they are not needed anymore, like when the scene changes and all the actors/components are destroyed.
 
     // for instance: remove all the listeners
     fLang.emitter.removeAllListeners();
