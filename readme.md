@@ -1,19 +1,20 @@
 # Superpowers fLang plugin
 
-Ths plugin expose the `fLang` module to the TypeScript API of the `Sup Game` system for [Superpowers, the extensible HTML5 2D+3D game engine](http://sparklinlabs.com).  
-It allows for easy localization of any in-game strings.
+Ths plugin allows for easy localization of any in-game strings if the `Sup Game` system for [Superpowers, the extensible HTML5 2D+3D game engine](http://sparklinlabs.com).  
+
+It expose the `fLang` module to the TypeScript API.
 
 
 ## Documentation
 
 [http://florentpoujol.github.io/superpowers-flang-plugin](http://florentpoujol.github.io/superpowers-flang-plugin)
 
-You can also access it offline in Superpowers' client with the [docs browser](https://github.com/florentpoujol/superpowers-docs-browser-plugin) plugin, or find it directly in the plugin's `public/docs` folder.
+You can also access it offline in Superpowers' client with the [Plugins documentation](https://github.com/florentpoujol/superpowers-pluginsdocumentation-plugin) plugin, or find it directly in the plugin's `public/docs` folder.
 
 
 ## Installation
 
-[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/sustems/supGame/plugins/florentpoujol/` then restart your server.
+[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/systems/supGame/plugins/florentpoujol/` then restart your server.
 
 __Advanced:__
 
