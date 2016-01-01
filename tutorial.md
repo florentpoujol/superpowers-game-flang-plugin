@@ -1,6 +1,6 @@
-# Superpowers fLang plugin
+# Superpowers Game fLang plugin
 
-Ths plugin allows for easy localization of any in-game strings if the `Sup Game` system for [Superpowers, the extensible HTML5 2D+3D game engine](http://sparklinlabs.com).  
+Ths plugin allows for easy localization of any in-game strings in the `Superpowers Game` system for [Superpowers, the extensible HTML5 2D+3D game engine](http://superpowers-html5.com).  
 
 It expose the `fLang` namespace to the TypeScript API.
 

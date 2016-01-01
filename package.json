@@ -1,7 +1,7 @@
 {
   "name": "sup-flang-plugin",
-  "version": "0.3.1",
-  "description": "Easy localization for the supGame system for Superpowers, the extensible HTML5 2D+3D game engine.",
+  "version": "0.3.2",
+  "description": "Easy localization for the Superpowers Game system for Superpowers, the extensible HTML5 2D+3D game engine.",
   "repository": {
     "type": "git",
     "url": "https://github.com/florentpoujol/superpowers-flang-plugin"

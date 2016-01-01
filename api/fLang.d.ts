@@ -1,6 +1,6 @@
 // fLang plugin
 // https://github.com/florentpoujol/superpowers-flang-plugin
-// Easy localization of any in-game strings.
+// Easy localization of any in-game strings in the Superpowers Game system.
 
 // Documentation:
 // http://florentpoujol.github.io/superpowers-flang-plugin
@@ -20,7 +20,7 @@ declare namespace fLang {
   
   var config: Config;
   var emitter: EventEmitter; // "flangUpdate" is the only event ever emitted on it
-  var cache: any; // { [key:string]: string }
+  var cache: { [key:string]: string }; // { [key:string]: string }
   var dictionariesByLocale: any; // { [key:string]: Object }
   
   function get(key: string, replacements?: { [key:string]: string }): string;
