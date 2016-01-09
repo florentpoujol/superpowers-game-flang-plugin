@@ -1,17 +1,12 @@
 {
-  "name": "sup-flang-plugin",
-  "version": "0.3.2",
+  "name": "superpowers-game-flang-plugin",
+  "version": "0.4.0",
   "description": "Easy localization for the Superpowers Game system for Superpowers, the extensible HTML5 2D+3D game engine.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/florentpoujol/superpowers-flang-plugin"
+    "url": "https://github.com/florentpoujol/superpowers-game-flang-plugin"
   },
   "author": "Florent Poujol <florent.poujol@gmail.com> (http://florentpoujol.fr)",
-  "dependencies": {},
-  "devDependencies": {
-    "typedoc": "0.2.x",
-    "typescript": "1.6.x"
-  },
   "keywords": [
     "superpowers",
     "plugin",
@@ -21,21 +16,20 @@
     "internationalization"
   ],
   "bugs": {
-    "url": "https://github.com/florentpoujol/superpowers-flang-plugin/issues"
+    "url": "https://github.com/florentpoujol/superpowers-game-flang-plugin/issues"
   },
   "scripts": {
     "compilets": "tsc api/fLang.ts --out gitignore/fLang.js --module commonjs --target ES5",
-    "gendoc": "typedoc --out gitignore/docs api/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --theme minimal",
-    
+    "gendoc": "typedoc --out gitignore/docs typescriptAPI/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --theme minimal",
     "linkplugindev": "mklink /j \"../../app/systems/supGame/plugins/florentpoujol/fLang\" \"./\"",
     "linkprojectdev": "mklink /j \"../../data/projects/fLang\" \"./project/fLang\"",
-
     "linkpluginrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
-    "linkprojectrelease": "mklink /j \"../../../release/data/projects/fLang\" \"./project/fLang\""
+    "linkprojectrelease": "mklink /j \"../../../release/data/projects/fLang\" \"./project/fLang\"",
+    "build": "gulp --gulpfile=../../app/scripts/pluginGulpfile.js --cwd=."
   },
   "maintainers": [
     "Florent Poujol <florent.poujol@gmail.com>"
   ],
-  "homepage": "https://github.com/florentpoujol/superpowers-flang-plugin",
+  "homepage": "https://github.com/florentpoujol/superpowers-game-flang-plugin",
   "license": "MIT"
 }

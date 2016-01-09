@@ -51,7 +51,7 @@ namespace fLang {
   * The module's configuration. <br>
   * See the `Config` interface for a description of each properties and their default values.
   */
-  export var config: Config; // this two-step thing is need for typedoc to consider config as a variable instead of an object literals
+  export let config: Config; // this two-step thing is needed for typedoc to consider config as a variable instead of an object literals
   config = {
     locales: ["en"],
     defaultLocale: "en",
@@ -65,13 +65,13 @@ namespace fLang {
   * The module's event emitter.
   * The only event ever emitted is "fLangUpdate".
   */
-  export var emitter = new (<any>window).EventEmitter(); // provided by Sparklinlabs' eventEmitter plugin
+  export const emitter = new (<any>window).EventEmitter(); // provided by Sparklinlabs' eventEmitter plugin
 
   /**
   * A cache for the keys and their values. All keys contains the locale name as their first chunk. <br>
   * The content is of type `{ [key:string]: string }`.
   */
-  export var cache: any = {};
+  export const cache: any = {};
 
   /**
   * The container for the locale dictionaries. <br>
@@ -79,7 +79,7 @@ namespace fLang {
   * The values are single or multilevel dictionaries in which all keys and values should be strings. <br>
   * The content must be of type `{ [key:string]: Object }` and the default value is `{ en: {} }`.
   */
-  export var dictionariesByLocale: any;
+  export let dictionariesByLocale: any;
   dictionariesByLocale = { en: {} };
 
   /**
@@ -90,16 +90,16 @@ namespace fLang {
   * @returns The localized string in the current locale
   */
   export function get( key: string, replacements?: { [key:string]: any } ): string {
-    var cacheLine = config.cache;
-    var locale = config.currentLocale;
-    var locKey = locale + "." + key;
-    var line = cache[ key ] || cache[ locKey ] || "";
+    let cacheLine = config.cache;
+    let locale = config.currentLocale;
+    let locKey = locale + "." + key;
+    let line = cache[ key ] || cache[ locKey ] || "";
 
     if ( line === "" ) { 
       // the line wasn't found in the cache
 
-      var keyChunks = key.split( "." );
-      var noLocKey = key; // key without locale at the beginning
+      const keyChunks = key.split( "." );
+      let noLocKey = key; // key without locale at the beginning
 
       // override the current locale if the first part of the key is a locale ?
       if ( config.locales.indexOf( keyChunks[ 0 ] ) !== -1 ) {
@@ -114,15 +114,15 @@ namespace fLang {
         // now we really need to retrieve a line from a dictionnary
 
         // check if dictionary exists
-        var dico: any = dictionariesByLocale[ locale ]; // speicying the type any makes the compiler happy when writing "line = dico;" below
+        let dico: any = dictionariesByLocale[ locale ]; // speicying the type any makes the compiler happy when writing "line = dico;" below
         if ( dico === undefined ) {
-          var error = "fLang.get(): Dictionary not found for locale '"+locale+"'.";
+          const error = "fLang.get(): Dictionary not found for locale '"+locale+"'.";
           console.error( error, "  Key:", key, "  Dictionaries:", dictionariesByLocale );
           return error;
         }
 
-        for ( var i = 0; i < keyChunks.length; i++ ) {
-          var _key = keyChunks[ i ];
+        for ( let i = 0; i < keyChunks.length; i++ ) {
+          const _key = keyChunks[ i ];
 
           if ( dico[ _key ] === undefined ) {
             // _key was not found in this locale
@@ -152,11 +152,11 @@ namespace fLang {
     else
       cacheLine = false; // no need to cache if the line already comes from it
 
-    var type = typeof( line )
+    const type = typeof( line );
     if ( type !== "string" ) {
       // test the type here to get a unified error message
       // otherwise, caching, replacing and returning the non-string value should all throw a different error message
-      var error = "fLang.get(): Provided key '" + key + "' does not lead to a string but to a value of type '" + type + "'."
+      const error = "fLang.get(): Provided key '" + key + "' does not lead to a string but to a value of type '" + type + "'."
       console.error( error, "  Value:", line, "  Dictionary:", fLang.dictionariesByLocale[ locale ] );
       return error;
     }
@@ -168,7 +168,7 @@ namespace fLang {
     // finally process replacements
     if ( replacements !== undefined ) {
       // ie: replacements = { theKeyToSearchFor: "my new value" }
-      for ( var replKey in replacements ) { // can't use var key, nor _key
+      for ( let replKey in replacements ) { // can't use var key, nor _key
         line = line.replace(
           config.replacementPattern.replace( "placeholder", replKey ), // ie: replace "{{placeholder}}" by "{{theKeyToSearchFor}}"
           replacements[ replKey ] 
@@ -197,7 +197,7 @@ namespace fLang {
 
     if (typeof dictionary === "string") {
       if (window["fText"] != null) {
-        dico = window["Sup"].get(<string>dictionary, window["fText"]).parse();
+        dico = window["Sup"].get(dictionary as string, window["fText"]).parse();
       }
       else {
         console.error("fLang.setDictionary(): You passed the following arguments but the fText plugin doesn't appear to be installed.", language, dictionary);
@@ -205,7 +205,7 @@ namespace fLang {
       }
     }
     else
-      dico = <any>dictionary;
+      dico = dictionary as any;
 
     if (config.locales.indexOf(language) === -1)
       config.locales.push(language);
@@ -215,4 +215,4 @@ namespace fLang {
 }
 
 // expose to the runtime
-(<any>window).fLang = fLang;
+(window as any).fLang = fLang;

@@ -7,24 +7,24 @@ It expose the `fLang` namespace to the TypeScript API.
 
 ## Documentation
 
-[http://florentpoujol.github.io/superpowers-flang-plugin](http://florentpoujol.github.io/superpowers-flang-plugin)
+[http://florentpoujol.github.io/superpowers-game-flang-plugin](http://florentpoujol.github.io/superpowers-game-flang-plugin)
 
-You can also access it offline in Superpowers' client with the [Plugins documentation](https://github.com/florentpoujol/superpowers-pluginsdocumentation-plugin) plugin, or find it directly in the plugin's `public/docs` folder.
+You can also access it offline in Superpowers' client with the [Plugins documentation](https://github.com/florentpoujol/superpowers-common-pluginsdocs-plugin) plugin, or find it directly in the plugin's `public/docs` folder.
 
 
 ## Installation
 
-[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/systems/supGame/plugins/florentpoujol/` then restart your server.
+[Download the latest release](https://github.com/florentpoujol/superpowers-game-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/systems/supGame/plugins/florentpoujol/` then restart your server.
 
 __Advanced:__
 
 Get it via `npm`:
         
     cd app/systems/supGame/plugins
-    npm install sup-flang-plugin
+    npm install superpowers-game-flang-plugin
 
 The name of the vendors or plugins in the `app/systems/supGame/plugins/` folder don't matter.  
-So you can leave the plugin path as `node_modules/sup-flang-plugin`.
+So you can leave the plugin path as `node_modules/superpowers-game-flang-plugin`.
 
 
 ## Quick reference
@@ -96,4 +96,4 @@ To run it, put the project folder `fLang` in Superpowers' projects folder, start
 
 On Window, Superpowers' projects folder is typically in `C:\Users\[Your user name]\AppData\Roaming\Superpowers`.
 
-Note that this project depends on [the `fText` asset plugin](https://github.com/florentpoujol/superpowers-ftext-plugin), as well as this plugin (obviously).
+Note that this project depends on [the `fText` asset plugin](https://github.com/florentpoujol/superpowers-game-ftext-plugin), as well as this plugin (obviously).

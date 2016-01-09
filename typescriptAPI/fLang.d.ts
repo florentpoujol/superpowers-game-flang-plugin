@@ -1,12 +1,12 @@
-// fLang plugin
-// https://github.com/florentpoujol/superpowers-flang-plugin
+// Superpowers Game fLang plugin
+// https://github.com/florentpoujol/superpowers-game-flang-plugin
 // Easy localization of any in-game strings in the Superpowers Game system.
 
 // Documentation:
-// http://florentpoujol.github.io/superpowers-flang-plugin
+// http://florentpoujol.github.io/superpowers-game-flang-plugin
 
 // You can also access the documentation offline in the plugin's "public/docs" folder 
-// or via the "Plugins documentation" tool provided by the "Plugins documentation" plugin: https://github.com/florentpoujol/superpowers-pluginsdocumentation-plugin
+// or via the "Plugins documentation" tool provided by the "Plugins documentation" plugin: https://github.com/florentpoujol/superpowers-common-pluginsdocs-plugin
 
 declare namespace fLang {
   interface Config {

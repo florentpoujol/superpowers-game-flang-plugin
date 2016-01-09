@@ -16,13 +16,13 @@ fLang.setDictionary("fr", "fr.json");
 
 
 var fn = function(locale) {
-  Sup.log("====================");
+  Sup.log("========= flangUpdate ===========");
   Sup.log("new locale");
   Sup.log(locale);
-  Sup.log("====================");
+  Sup.log("========= flangUpdate ===========");
 }
 
-fLang.emitter.on("flangUpdate", fn);
+fLang.emitter.on("fLangUpdate", fn);
 
 
 

@@ -4,22 +4,22 @@ Ths plugin allows for easy localization of any in-game strings in the `Superpowe
 
 It expose the `fLang` namespace to the TypeScript API.
 
-[Go back to the GitHub repo.](https://github.com/florentpoujol/superpowers-flang-plugin)
+[Go back to the GitHub repo.](https://github.com/florentpoujol/superpowers-game-flang-plugin)
 
 
 ## Installation
 
-[Download the latest release](https://github.com/florentpoujol/superpowers-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/systems/supGame/plugins/florentpoujol/` then restart your server.
+[Download the latest release](https://github.com/florentpoujol/superpowers-game-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/systems/supGame/plugins/florentpoujol/` then restart your server.
 
 __Advanced:__
 
 Get it via `npm`:
         
     cd app/systems/supGame/plugins
-    npm install sup-flang-plugin
+    npm install superpowers-game-flang-plugin
 
 The name of the vendors or plugins in the `app/systems/supGame/plugins/` folder don't matter.  
-So you can leave the plugin path as `node_modules/sup-flang-plugin`.
+So you can leave the plugin path as `node_modules/superpowers-game-flang-plugin`.
 
 
 ## Configuration
@@ -54,7 +54,7 @@ The key/string pairs for each locales must be set with the `setDictionary(langua
 
 ### Writting dictionaries in fText assets
 
-For convenience and ease of use, you can [use a `fText` asset](https://github.com/florentpoujol/superpowers-ftext-plugin) to write your localization dictionaries, instead of writing a Javascript object directly in a script asset like in the example above.
+For convenience and ease of use, you can [use a `fText` asset](https://github.com/florentpoujol/superpowers-game-ftext-plugin) to write your localization dictionaries, instead of writing a Javascript object directly in a script asset like in the example above.
 
 Note that you can only use the extensions that are parsed to a Javascript object, like `json`, `cson`, and `yml`.
 
