@@ -1,6 +1,6 @@
 {
   "name": "superpowers-game-flang-plugin",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Easy localization for the Superpowers Game system for Superpowers, the extensible HTML5 2D+3D game engine.",
   "repository": {
     "type": "git",
@@ -20,12 +20,8 @@
   },
   "scripts": {
     "compilets": "tsc api/fLang.ts --out gitignore/fLang.js --module commonjs --target ES5",
-    "gendoc": "typedoc --out gitignore/docs typescriptAPI/fLang.ts --mode file --target ES5 --name \"fLang plugin\" --readme tutorial.md --theme minimal",
-    "linkplugindev": "mklink /j \"../../app/systems/supGame/plugins/florentpoujol/fLang\" \"./\"",
-    "linkprojectdev": "mklink /j \"../../data/projects/fLang\" \"./project/fLang\"",
-    "linkpluginrelease": "mklink /j \"../../../release/app/plugins/florentpoujol/fLang\" \"./\"",
-    "linkprojectrelease": "mklink /j \"../../../release/data/projects/fLang\" \"./project/fLang\"",
-    "build": "gulp --gulpfile=../../app/scripts/pluginGulpfile.js --cwd=."
+    "linkprojectdev": "mklink /j \"../../../../../projects/fLang\" \"./project/fLang\"",
+    "build": "gulp --gulpfile=../../../../../scripts/pluginGulpfile.js --cwd=."
   },
   "maintainers": [
     "Florent Poujol <florent.poujol@gmail.com>"

@@ -1,5 +1,0 @@
-{
-  "greetings": {
-    "welcome": "Bienvenu {{player_name}} !"
-  }
-}

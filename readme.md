@@ -2,35 +2,28 @@
 
 Ths plugin allows for easy localization of any in-game strings in the `Superpowers Game` system for [Superpowers, the extensible HTML5 2D+3D game engine](http://superpowers-html5.com).  
 
-It expose the `fLang` namespace to the TypeScript API.
-
-
-## Documentation
-
-[http://florentpoujol.github.io/superpowers-game-flang-plugin](http://florentpoujol.github.io/superpowers-game-flang-plugin)
-
-You can also access it offline in Superpowers' client with the [Plugins documentation](https://github.com/florentpoujol/superpowers-common-pluginsdocs-plugin) plugin, or find it directly in the plugin's `public/docs` folder.
-
 
 ## Installation
 
-[Download the latest release](https://github.com/florentpoujol/superpowers-game-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `app/systems/supGame/plugins/florentpoujol/` then restart your server.
+Directly from the `Server Settings` tab in Superpowers' App.
 
-__Advanced:__
-
-Get it via `npm`:
-        
-    cd app/systems/supGame/plugins
-    npm install superpowers-game-flang-plugin
-
-The name of the vendors or plugins in the `app/systems/supGame/plugins/` folder don't matter.  
-So you can leave the plugin path as `node_modules/superpowers-game-flang-plugin`.
+Or manually :
+[Download the latest release](https://github.com/florentpoujol/superpowers-game-flang-plugin/releases), unzip it, rename the folder to `flang`, move it inside `resources/app/systems/game/plugins/florentpoujol/` then restart your server.
 
 
-## Quick reference
+## Configuration
 
-Set the dictionaries with the `setDictionary(language: string, dictionary: Object|string)` function :
-    
+The `fLang.config` object contains the configuration properties.
+
+
+## Dictionaries
+
+Each of the localized strings in your game are identified by a key, unique accross all locales.
+
+The keys must not contains dot and the first-level keys must not be any of the locale name.
+
+The key/string pairs for each locales must be set with the `setDictionary(language: string, dictionary: Object|string)` function :
+
     let en: any = {
       localeName: "English",
 
@@ -47,53 +40,74 @@ Set the dictionaries with the `setDictionary(language: string, dictionary: Objec
     });
 
 
+## Retrieve a string
+
 Retrieve a localized string in the current locale:
     
     var text = fLang.get( "localName" ); // returns "English"
 
-Chain keys with a dot notation :
+Access nested strings with "dot notation":
 
     var text = fLang.get( "greetings.welcome" ); // Welcome {{player_name}}!
 
-Specify a locale at the begining of the key to override the current locale:
+You can specify a locale at the begining of the key to override the current locale:
 
-    var text = fLang.get( "fr.greetings.welcome" ); // Bienvenu {{player_name}}!
+    var text = fLang.get( "fr.greetings.welcome" ); // Bienvenue {{player_name}} !
 
-Keys not found in a locale may still return a value if they exists in the default locale :
+If `searchInDefaultLocale` is `true` in the config, keys not found in a locale may still return the value found in the default locale (if any):
 
     var text = fLang.get( "fr.localName" ); // English
+
+## Placeholders and replacements
+
+Your localized strings may contains placeholder texts that are meant to be replaced with other values before being displayed.  
 
 Pass a dictionary of placeholders/replacements as second argument to personalize elements in the localized strings:
     
     var text = fLang.get( "greetings.welcome", { player_name: "Florent" } );
     // Welcome Florent!
 
-Update the current locale with the `update()` function.
+You can define another replacement pattern via the config:
+
+    fLang.config.replacementPattern = ":placeholder";
+    fLang.dictionariesByLocales.en.greetings.welcome = "Welcome :player_name!"
+
+    var text = fLang.get( "greetings.welcome", { player_name: "Florent" } ); 
+    // Welcome Florent!
+
+## Updating the current locale
+
+Use the `update()` function:
 
     var text = fLang.get( "greetings.welcome" ); // Welcome {{player_name}}!
 
-    fLang.udpate("fr");
+    fLang.udpate( "fr" );
 
     var text = fLang.get( "greetings.welcome" ); // Bienvenu {{player_name}} !
     
-The `update()` function makes the module's event emitter (`fLang.emitter`) emit the `"fLangUpdate"` event.  
+The `update()` function makes the event emitter (`fLang.emitter`) emit the `"fLangUpdate"` event.  
 
     fLang.emitter.on("fLangUpdate", (locale: string) => {
-      console.log("The new current locale is "+locale);
+      Sup.log("The new current locale is "+locale);
     });
 
     fLang.udpate( "fr" ); // prints "The new current locale is fr"
 
 The listeners receive the new current locale as their first and only arguments.  
-You can use this to automaticaly update texts when the user changes the locale.  
+You can use this to automaticaly update texts when the user changes the locale.
+    
+    // suppose the actor has a `TextRenderer` component that displays text on-screen.
+    this.actor.textRenderer.setText( fLang.get( "ui.options.title" ) ;
 
+    fLang.emitter.on("fLangUpdate", (locale: string) => {
+        this.actor.textRenderer.setText( fLang.get( "ui.options.title" ) );
+    });
 
-## Test project
+For instance this could change the name of the option menu whenever the player changes the locale.
 
-The `project` folder contains a test project.  
+If you work with an actor, a component or anything that is destroyed at some point, you really need to make sure these objects exists before working on them in the listeners.  
 
-To run it, put the project folder `fLang` in Superpowers' projects folder, start the server, access the project then run it and open the console.
+You also need to make sure that the listeners are removed when they are not needed anymore, like when the scene changes and all the actors/components are destroyed.
 
-On Window, Superpowers' projects folder is typically in `C:\Users\[Your user name]\AppData\Roaming\Superpowers`.
-
-Note that this project depends on [the `fText` asset plugin](https://github.com/florentpoujol/superpowers-game-ftext-plugin), as well as this plugin (obviously).
+    // for instance: remove all the listeners
+    fLang.emitter.removeAllListeners();

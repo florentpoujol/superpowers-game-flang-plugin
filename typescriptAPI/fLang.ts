@@ -1,7 +1,5 @@
-/// <reference path="../index.d.ts" />
-
 /**
-* A module for simple and easy localization.
+* A namespace for simple and easy localization.
 */
 namespace fLang {
   
@@ -51,8 +49,7 @@ namespace fLang {
   * The module's configuration. <br>
   * See the `Config` interface for a description of each properties and their default values.
   */
-  export let config: Config; // this two-step thing is needed for typedoc to consider config as a variable instead of an object literals
-  config = {
+  export const config: Config = {
     locales: ["en"],
     defaultLocale: "en",
     currentLocale: "en",
@@ -65,22 +62,21 @@ namespace fLang {
   * The module's event emitter.
   * The only event ever emitted is "fLangUpdate".
   */
-  export const emitter = new (<any>window).EventEmitter(); // provided by Sparklinlabs' eventEmitter plugin
+  export const emitter = new (window as any).EventEmitter(); // provided by Sparklinlabs' eventEmitter plugin
 
   /**
   * A cache for the keys and their values. All keys contains the locale name as their first chunk. <br>
-  * The content is of type `{ [key:string]: string }`.
+  * The content is of type `{ [key: string]: string }`.
   */
-  export const cache: any = {};
+  export const cache: { [key: string]: string } = {};
 
   /**
   * The container for the locale dictionaries. <br>
   * The keys are the locale names as defined in the `fLang.config.locales` array. <br>
   * The values are single or multilevel dictionaries in which all keys and values should be strings. <br>
-  * The content must be of type `{ [key:string]: Object }` and the default value is `{ en: {} }`.
+  * The content must be of type `{ [key: string]: Object }` and the default value is `{ en: {} }`.
   */
-  export let dictionariesByLocale: any;
-  dictionariesByLocale = { en: {} };
+  export const dictionariesByLocale: { [key: string]: any } = { en: {} };
 
   /**
   * Retrieve a localized string from its key in the current locale or the locale specified as first chunk of the key. <br>
@@ -89,7 +85,7 @@ namespace fLang {
   * @param replacements The placeholders and their replacements.
   * @returns The localized string in the current locale
   */
-  export function get( key: string, replacements?: { [key:string]: any } ): string {
+  export function get(key: string, replacements?: { [key: string]: string }): string {
     let cacheLine = config.cache;
     let locale = config.currentLocale;
     let locKey = locale + "." + key;
@@ -180,10 +176,10 @@ namespace fLang {
   };
 
   /**
-  * Sets the new current locale and emit the `"onUpdate"` event, passing the new locale as first and only argument.
+  * Sets the new current locale and emit the `"fLangUpdate"` event, passing the new locale as first and only argument.
   * @param newCurrentLocale The new current locale name (as set in the `fLang.config.locales` array).
   */
-  export function update( newCurrentLocale: string ) {
+  export function update( newCurrentLocale: string ): void {
     if ( config.locales.indexOf( newCurrentLocale ) === -1 ) {
       console.error( "fLang.update(): Provided new current locale '"+newCurrentLocale+"' is not one of the registered locales.", config.locales );
       return;
@@ -192,25 +188,16 @@ namespace fLang {
     emitter.emit( "fLangUpdate", newCurrentLocale );
   }
 
-  export function setDictionary(language: string, dictionary: Object|string) {
-    let dico: any;
+  /**
+  * Sets the list of key/string for the specified locale.
+  * @param locale The locale.
+  * @param dictionary The object that contains the list of (maybe nested) keys and corresponding translations.
+  */
+  export function setDictionary(locale: string, dictionary: any): void {
+    if (config.locales.indexOf(locale) === -1)
+      config.locales.push(locale);
 
-    if (typeof dictionary === "string") {
-      if (window["fText"] != null) {
-        dico = window["Sup"].get(dictionary as string, window["fText"]).parse();
-      }
-      else {
-        console.error("fLang.setDictionary(): You passed the following arguments but the fText plugin doesn't appear to be installed.", language, dictionary);
-        return;
-      }
-    }
-    else
-      dico = dictionary as any;
-
-    if (config.locales.indexOf(language) === -1)
-      config.locales.push(language);
-
-    dictionariesByLocale[language] = dico;
+    dictionariesByLocale[locale] = dictionary;
   }
 }
 

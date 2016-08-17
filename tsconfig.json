@@ -4,5 +4,8 @@
     "target": "es5",
     "noImplicitAny": true
   },
-  "files": [""]
+  "exclude": [
+    "typescriptAPI",
+    "project"
+  ]
 }

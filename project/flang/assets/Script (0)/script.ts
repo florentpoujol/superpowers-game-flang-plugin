@@ -2,20 +2,23 @@
 Sup.log("fLang");
 Sup.log(fLang);
 
+let en = {
+  localeName: "English",
 
-var en: any = Sup.get( "en.cson", fText ).parse();
-// Sup.log(en);
-// fLang.dictionariesByLocale.en = en;
+  greetings: { // you may nest the keys
+    welcome: "Welcome {{player_name}}!"
+  }
+};
 fLang.setDictionary("en", en);
 
-// fLang.config.locales.push("fr");
-// var fr: any = (<fText>Sup.get( "fr.json" )).parse();
-// Sup.log(fr);
-// fLang.dictionariesByLocale.fr = fr
-fLang.setDictionary("fr", "fr.json");
+fLang.setDictionary("fr", {
+  greetings: {
+    welcome: "Bienvenu {{player_name}} !"
+  }
+});
 
 
-var fn = function(locale) {
+let fn = function(locale) {
   Sup.log("========= flangUpdate ===========");
   Sup.log("new locale");
   Sup.log(locale);
@@ -37,7 +40,7 @@ Sup.log( fLang.get( "greetings.welcome" ) );
 
 
 Sup.log("----------------------------");
-Sup.log("Expected: " + fLang.dictionariesByLocale.fr.greetings.welcome);
+Sup.log("Expected: " + fLang.dictionariesByLocale["fr"].greetings.welcome);
 Sup.log( fLang.get( "fr.greetings.welcome" ) );
 
 
@@ -60,7 +63,7 @@ Sup.log( fLang.get( "greetings.welcome", { player_name: "Florent" } ) );
 Sup.log("----------------------------");
 
 fLang.config.replacementPattern = ":placeholder";
-fLang.dictionariesByLocale.fr.greetings.welcome = "Bienvenu :player_name!"
+fLang.dictionariesByLocale["fr"].greetings.welcome = "Bienvenu :player_name!"
 delete fLang.cache["fr.greetings.welcome"];
 fLang.update("fr");
 
@@ -75,7 +78,7 @@ Sup.log( fLang.get( "de.localeName" ) );
 
 
 Sup.log("----------------------------");
-fLang.dictionariesByLocale.de = { localeName: 123 }; // wrong value type
+fLang.dictionariesByLocale["de"] = { localeName: 123 }; // wrong value type
 Sup.log("Expected: wrong type error printed in the console + returned");
 Sup.log( fLang.get( "de.localeName" ) );
 

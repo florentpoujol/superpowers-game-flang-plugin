@@ -1,17 +1,10 @@
-[
-  {
-    "id": "0",
-    "name": "Script",
-    "type": "script"
-  },
-  {
-    "id": "6",
-    "name": "en.cson",
-    "type": "fText"
-  },
-  {
-    "id": "7",
-    "name": "fr.json",
-    "type": "fText"
-  }
-]
+{
+  "nextEntryId": 8,
+  "nodes": [
+    {
+      "id": "0",
+      "name": "Script",
+      "type": "script"
+    }
+  ]
+}
